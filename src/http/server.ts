@@ -3,6 +3,8 @@ import { createPoll } from "./routes/create-poll"
 import { getPoll } from "./routes/get-poll"
 import { voteOnPoll } from "./routes/vote-on-poll"
 import cookie from "@fastify/cookie"
+import fastifyWebsocket from "@fastify/websocket"
+import { pollResults } from "./ws/poll-results"
 
 //quando o usuário acessar o endereço /hello, queremos executar a função abaixo
 /*app.get('/hello', () => {
@@ -16,9 +18,13 @@ app.register(cookie, {
     hook: 'onRequest',
 })
 
+app.register(fastifyWebsocket)
+
 app.register(createPoll)
 app.register(getPoll)
 app.register(voteOnPoll)
+
+app.register(pollResults)
 
 //ouvir a porta 3333 e quando o server entrar no ar, será exibida a mensagem abaixo
 app.listen({port: 3333}).then(() => {
